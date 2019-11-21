@@ -212,31 +212,82 @@ listView.setOnItemClickListener(itemClickListener);
             viewHolder.textName.setText(mainList.getTextName());
             viewHolder.item_camera.setImageBitmap(mainList.getImagePhoto());
 
-            /**
-             * @幫每一個按鈕加上標示確定是第幾列
-             */
-            viewHolder.textName         .setTag(R.id.position,position);
-            viewHolder.item_camera      .setTag(R.id.position,position);
-            viewHolder.item_basketball  .setTag(R.id.position,position);
-            viewHolder.item_circket     .setTag(R.id.position,position);
-            viewHolder.item_esport      .setTag(R.id.position,position);
-            viewHolder.item_football    .setTag(R.id.position,position);
-
-
-            /**
-             * @幫每一個按鈕新增監聽
-             */
-            viewHolder.textName         .setOnClickListener(listener);
-            viewHolder.item_camera      .setOnClickListener(listener);
-            viewHolder.item_basketball  .setOnClickListener(listener);
-            viewHolder.item_circket     .setOnClickListener(listener);
-            viewHolder.item_esport      .setOnClickListener(listener);
-            viewHolder.item_football    .setOnClickListener(listener);
-
             return view;
         }
     }
 ```
 
+### 在Adapter內確定每列相片點擊列與事件
+
+在value內建立ids.xml，與內文 name = "position" type="id"        
+```
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="position" type="id" />
+</resources>
+```
+
+創好後，在原本的Adapter適配器中加入以下code
+```
+/**
+* @幫每一個按鈕加上標示確定是第幾列
+*/
+viewHolder.textName         .setTag(R.id.position,position);
+viewHolder.item_camera      .setTag(R.id.position,position);
+viewHolder.item_basketball  .setTag(R.id.position,position);
+viewHolder.item_circket     .setTag(R.id.position,position);
+viewHolder.item_esport      .setTag(R.id.position,position);
+viewHolder.item_football    .setTag(R.id.position,position);
+```
+
+賦予每列點擊事件
+
+新增每個items點擊功能       
+```
+/**
+* @幫每一個按鈕新增監聽
+*/
+viewHolder.textName         .setOnClickListener(listener);
+viewHolder.item_camera      .setOnClickListener(listener);
+viewHolder.item_basketball  .setOnClickListener(listener);
+viewHolder.item_circket     .setOnClickListener(listener);
+viewHolder.item_esport      .setOnClickListener(listener);
+viewHolder.item_football    .setOnClickListener(listener);
+```
+
+點擊功能，取得R.id.items...點擊事件        
+```
+View.OnClickListener listener = view -> {
+
+        int position = (int)view.getTag(R.id.position);
+        application.mainList = (MainList)mainLists.get(position);
+        String item_name = application.mainList.getTextName();
+
+        switch (view.getId()){
+            case R.id.item_name:
+                showAlertUpdaing(item_name,"click_name",position);
+                break;
+            case R.id.item_basketball:
+                showAlertUpdaing(item_name,"click_basketball",position);
+                break;
+
+            case R.id.item_camera:
+                showAlertUpdaing(item_name,"click_camera",position);
+                break;
+
+            case R.id.item_circket:
+                showAlertUpdaing(item_name,"click_circket",position);
+                break;
+
+            case R.id.item_esport:
+                showAlertUpdaing(item_name,"click_esport",position);
+                break;
+
+            case R.id.item_football:
+                showAlertUpdaing(item_name,"click_football",position);
+                break;
+        }
+    };
+```
 
 
