@@ -289,5 +289,17 @@ View.OnClickListener listener = view -> {
         }
     };
 ```
+### 簡易付值
+```
+mainLists.clear();
 
+Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.camera);
+MainList mainList = new MainList("TEST1",bitmap);
+mainLists.add(mainList);
 
+MainList mainList2 = new MainList("TEST2",bitmap);
+mainLists.add(mainList2);
+
+MainList mainList3 = new MainList("TEST3",bitmap);
+mainLists.add(mainList3);
+```
